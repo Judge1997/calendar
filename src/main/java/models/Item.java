@@ -28,6 +28,17 @@ public class Item {
         return this.title;
     }
 
-    public void setAllDetail(String title, String detail, int day, int month, int year, String hour, String minite) {
+    public void setTitle(String title){
+        this.title = title;
     }
+
+    public void setDetail(String detail){
+        this.detail = detail;
+    }
+
+    public void setDate(int day, int month, int year, String hour, String minute) throws ParseException {
+        DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+        this.date = dateTimeFormat.parse(day+"/"+month+"/"+year+" "+hour+":"+minute);
+    }
+
 }

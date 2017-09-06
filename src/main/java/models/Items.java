@@ -10,7 +10,7 @@ public class Items {
 
     private ObservableList<Item> items = FXCollections.observableArrayList();
 
-    public static Items self = null;
+    private static Items self = null;
 
     public static Items getSelf() {
         if (self == null){
@@ -28,11 +28,6 @@ public class Items {
 
     public void deleteItem(int index){
         this.items.remove(index);
-    }
-
-    public void editItem(Item item, String title, String detail, int day, int month, int year, String hour, String minite){
-        int index = this.items.indexOf(item);
-        this.items.get(index).setAllDetail(title, detail, day, month, year, hour, minite);
     }
 
     public ObservableList<Item> getItems(){

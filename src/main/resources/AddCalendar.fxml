@@ -30,7 +30,7 @@
       </Label>
       <ScrollPane hbarPolicy="NEVER" layoutX="25.0" layoutY="177.0">
          <content>
-            <TextArea fx:id="detailAddCalendar" prefHeight="322.0" prefWidth="350.0" />
+            <TextArea fx:id="detailAddCalendar" prefHeight="322.0" prefWidth="350.0" wrapText="true" />
          </content>
       </ScrollPane>
       <Button fx:id="doneButton" layoutX="165.0" layoutY="527.0" mnemonicParsing="false" onAction="#doneAddCalendar" prefHeight="44.0" prefWidth="73.0" text="Done" />

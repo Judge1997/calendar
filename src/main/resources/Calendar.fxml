@@ -18,7 +18,7 @@
       </ScrollPane>
       <ScrollPane fx:id="detailScrollPane" hbarPolicy="NEVER" layoutX="25.0" layoutY="300.0">
          <content>
-            <TextArea fx:id="detailCalendar" editable="false" prefHeight="273.0" prefWidth="350.0" />
+            <TextArea fx:id="detailCalendar" editable="false" prefHeight="273.0" prefWidth="350.0" wrapText="true" />
          </content>
       </ScrollPane>
    </children>

@@ -20,6 +20,7 @@ import java.io.IOException;
 public class Controller {
 
     private Items items = Items.getSelf();
+    private EditController editController;
 
     @FXML
     private ListView listCalendar;
@@ -52,7 +53,6 @@ public class Controller {
 
     @FXML
     public void addCalendar(ActionEvent event) throws IOException {
-        System.out.println(123);
         Button add = (Button) event.getSource();
 
         Stage addWindow = (Stage) add.getScene().getWindow();
@@ -65,8 +65,21 @@ public class Controller {
     }
 
     @FXML
-    public void editCalendar(ActionEvent event){
+    public void editCalendar(ActionEvent event) throws IOException {
+        Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
 
+        Button add = (Button) event.getSource();
+
+        Stage addWindow = (Stage) add.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditCalendar.fxml"));
+        Parent window = loader.load();
+        this.editController = loader.getController();;
+        this.editController.setItem(item);
+
+        addWindow.setTitle("Edit Calendar");
+        addWindow.setScene(new Scene(window,400,600));
+        addWindow.setResizable(false);
+        addWindow.show();
     }
 
     @FXML
