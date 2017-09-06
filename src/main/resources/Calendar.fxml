@@ -13,12 +13,12 @@
       <Button fx:id="deleteButton" layoutX="264.0" layoutY="28.0" mnemonicParsing="false" onAction="#deleteCalendar" prefWidth="55.0" text="DELETE" />
       <ScrollPane hbarPolicy="NEVER" layoutX="25.0" layoutY="70.0" prefHeight="197.0" prefWidth="352.0">
          <content>
-            <ListView prefHeight="195.0" prefWidth="350.0" />
+            <ListView fx:id="listCalendar" prefHeight="195.0" prefWidth="350.0" />
          </content>
       </ScrollPane>
-      <ScrollPane hbarPolicy="NEVER" layoutX="25.0" layoutY="300.0">
+      <ScrollPane fx:id="detailScrollPane" hbarPolicy="NEVER" layoutX="25.0" layoutY="300.0">
          <content>
-            <TextArea editable="false" prefHeight="273.0" prefWidth="350.0" />
+            <TextArea fx:id="detailCalendar" editable="false" prefHeight="273.0" prefWidth="350.0" />
          </content>
       </ScrollPane>
    </children>
