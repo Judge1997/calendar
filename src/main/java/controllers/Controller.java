@@ -38,13 +38,13 @@ public class Controller {
                 if(event.getButton() == MouseButton.SECONDARY)
                 {
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
-                    detailCalendar.setText("Title: "+item.getTitle()+"\n"
-                            +"Detail: "+item.getDetail()+"\n"
+                    detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
+                            +"Detail: "+item.getDetail()+"\n\n"
                             +"Time: "+item.getDate());
                 }else{
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
-                    detailCalendar.setText("Title: "+item.getTitle()+"\n"
-                            +"Detail: "+item.getDetail()+"\n"
+                    detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
+                            +"Detail: "+item.getDetail()+"\n\n"
                             +"Time: "+item.getDate());
                 }
             }
