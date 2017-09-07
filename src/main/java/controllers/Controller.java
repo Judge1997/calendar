@@ -14,19 +14,37 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.Item;
 import models.Items;
+import models.SqlDatabase;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 public class Controller {
 
     private Items items = Items.getSelf();
     private EditController editController;
+    public static SqlDatabase database;
+
+    static {
+        try {
+            database = new SqlDatabase();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private ListView listCalendar;
 
     @FXML
     private TextArea detailCalendar;
+
+    public Controller() throws SQLException, ParseException {
+        items.setItems(database.readDatabase());
+    }
 
     @FXML
     private void initialize(){
@@ -40,12 +58,12 @@ public class Controller {
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
                     detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                             +"Detail: "+item.getDetail()+"\n\n"
-                            +"Time: "+item.getDate());
+                            +"Time: "+item.getDateAndTime());
                 }else{
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
                     detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                             +"Detail: "+item.getDetail()+"\n\n"
-                            +"Time: "+item.getDate());
+                            +"Time: "+item.getDateAndTime());
                 }
             }
         });
@@ -83,10 +101,19 @@ public class Controller {
     }
 
     @FXML
-    public void deleteCalendar(ActionEvent event){
+    public void exitCalendar(ActionEvent event) throws SQLException {
+        database.closeDatabase();
+        System.exit(0);
+    }
+
+    @FXML
+    public void deleteCalendar(ActionEvent event) throws SQLException {
+
         int index = listCalendar.getSelectionModel().getSelectedIndex();
+        database.deleteDate(items.getItems().get(index).getId());
         items.deleteItem(index);
         detailCalendar.setText("");
+
     }
 
 }

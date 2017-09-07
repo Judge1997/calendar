@@ -19,12 +19,14 @@ public class Items {
         return self;
     }
 
-    public void addItem(String title, String detail, int day, int month, int year, String hour, String minute) throws ParseException {
-        Item item = new Item(title, detail, day, month, year, hour, minute);
+    public void addItem(int id, String title, String detail, int day, int month, int year, String hour, String minute) throws ParseException {
+        Item item = new Item(id,title, detail, day, month, year, hour, minute);
         this.items.add(item);
     }
 
-
+    public void setItems(ObservableList<Item> items){
+        this.items = items;
+    }
 
     public void deleteItem(int index){
         this.items.remove(index);

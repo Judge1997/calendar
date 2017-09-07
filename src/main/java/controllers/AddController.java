@@ -12,10 +12,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import models.Item;
 import models.Items;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
+
+import static controllers.Controller.database;
 
 public class AddController{
 
@@ -49,16 +53,29 @@ public class AddController{
     }
 
     @FXML
-    private void doneAddCalendar(ActionEvent event) throws IOException, ParseException {
+    private void doneAddCalendar(ActionEvent event) throws IOException, ParseException, SQLException {
+        if (items.getItems().size() == 0){
+            items.addItem(items.getItems().size()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
+                    dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString());
 
-        items.addItem(titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
-                dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
-                hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString());
+            database.addDate(new Item(items.getItems().size()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
+                    dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString()));
+        } else {
+            items.addItem(items.getItems().get(items.getItems().size()-1).getId()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
+                    dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString());
 
+            database.addDate(new Item(items.getItems().get(items.getItems().size()-1).getId()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
+                    dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString()));
+        }
         this.toMainWindow(event);
 
     }
 
+    @FXML
     public void toMainWindow(ActionEvent event) throws IOException {
         Button done = (Button) event.getSource();
 

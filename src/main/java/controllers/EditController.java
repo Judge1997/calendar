@@ -16,9 +16,12 @@ import models.Item;
 import models.Items;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+
+import static controllers.Controller.database;
 
 public class EditController {
 
@@ -52,7 +55,7 @@ public class EditController {
     }
 
     @FXML
-    private void doneEditCalendar(ActionEvent event) throws IOException, ParseException {
+    private void doneEditCalendar(ActionEvent event) throws IOException, ParseException, SQLException {
         this.item.setTitle(titleEditCalendar.getText());
         this.item.setDetail(detailEditCalendar.getText());
         this.item.setDate(dateEditCalendar.getValue().getDayOfMonth(),
@@ -61,6 +64,8 @@ public class EditController {
                 hourEditCalendar.getValue().toString(),
                 minuteEditCalendar.getValue().toString());
 
+        database.editDate(this.item);
+
         this.toMainWindow(event);
     }
 
@@ -68,15 +73,12 @@ public class EditController {
         this.item = item;
         titleEditCalendar.setText(this.item.getTitle());
         detailEditCalendar.setText(this.item.getDetail());
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-        String date = formatDate.format(this.item.getDate());
-        dateEditCalendar.setValue(LocalDate.parse(date.substring(6,10)+"-"+date.substring(3,5)+"-"+date.substring(0,2)));
-        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
-        String time = formatTime.format(this.item.getDate().getTime());
-        hourEditCalendar.setValue(time.substring(3));
-        minuteEditCalendar.setValue(time.substring(3,5));
+        dateEditCalendar.setValue(LocalDate.parse(this.item.getDate()));
+        hourEditCalendar.setValue(this.item.getTime().substring(0,2));
+        minuteEditCalendar.setValue(this.item.getTime().substring(3,5));
     }
 
+    @FXML
     public void toMainWindow(ActionEvent event) throws IOException {
         Button done = (Button) event.getSource();
 
