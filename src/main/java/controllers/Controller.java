@@ -58,12 +58,20 @@ public class Controller {
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
                     detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                             +"Detail: "+item.getDetail()+"\n\n"
-                            +"Time: "+item.getDateAndTime());
+                            +"Date: "+item.getDateAndTime().toString().substring(0,3)+" "
+                            +item.getDate().substring(8,10)+"-"
+                            +item.getDateAndTime().toString().substring(4,7)+"-"
+                            +item.getDate().substring(0,4)
+                            +" Time: "+item.getTime());
                 }else{
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
                     detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                             +"Detail: "+item.getDetail()+"\n\n"
-                            +"Time: "+item.getDateAndTime());
+                            +"Date: "+item.getDateAndTime().toString().substring(0,3)+" "
+                            +item.getDate().substring(8,10)+"-"
+                            +item.getDateAndTime().toString().substring(4,7)+"-"
+                            +item.getDate().substring(0,4)
+                            +" Time: "+item.getTime());
                 }
             }
         });
