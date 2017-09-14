@@ -32,32 +32,33 @@ public class SqlDatabase {
             String detail = resultSet.getString(3);
             String date = resultSet.getString(4);
             String time = resultSet.getString(5);
+            String status = resultSet.getString(6);
 
             int day = Integer.parseInt(date.substring(8,10));
             int month = Integer.parseInt(date.substring(5,7));
             int year = Integer.parseInt(date.substring(0,4));
 
-            items.add(new Item(id,title,detail,day,month,year,time.substring(0,2),time.substring(3,5)));
+            items.add(new Item(id,title,detail,day,month,year,time.substring(0,2),time.substring(3,5), status));
         }
 
         return items;
     }
 
-    public void addDate(Item item) throws SQLException {
-        String query = "INSERT INTO dataBaseCalendar (id, 'title', 'detail', 'date', 'time') " +
-                "VALUES ( " + item.getId()+ ",'"+item.getTitle()+"','"+item.getDetail()+"','"+item.getDate()+ "','"+item.getTime()+"');";
+    public void addData(Item item) throws SQLException {
+        String query = "INSERT INTO dataBaseCalendar (id, 'title', 'detail', 'date', 'time', 'status') " +
+                "VALUES ( " + item.getId()+ ",'"+item.getTitle()+"','"+item.getDetail()+"','"+item.getDate()+ "','"+item.getTime()+"','"+item.getStatus()+"');";
         Statement statement = connect.createStatement();
         statement.executeUpdate(query);
     }
 
-    public void editDate(Item item) throws SQLException {
+    public void editData(Item item) throws SQLException {
         String query = "UPDATE dataBaseCalendar SET id = " +item.getId() +
-                ", title ='"+item.getTitle()+"' , detail ='"+item.getDetail()+"' , date ='"+item.getDate()+"', time ='"+item.getTime()+ "' WHERE id = "+item.getId();
+                ", title ='"+item.getTitle()+"' , detail ='"+item.getDetail()+"' , date ='"+item.getDate()+"', time ='"+item.getTime()+"' , status ='"+item.getStatus()+ "' WHERE id = "+item.getId();
         Statement statement = connect.createStatement();
         statement.executeUpdate(query);
     }
 
-    public void deleteDate(int id) throws SQLException {
+    public void deleteData(int id) throws SQLException {
         String query = "Delete from dataBaseCalendar where Id = "+id;
         Statement statement = connect.createStatement();
         statement.executeUpdate(query);

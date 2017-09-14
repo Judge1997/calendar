@@ -31,6 +31,8 @@ public class AddController{
     private ObservableList<String> minuteChoice = FXCollections.observableArrayList("0","5","10","15","20","25","30","35","40",
             "45","50","55");
 
+    private ObservableList<String> statusChoice = FXCollections.observableArrayList("Normal","Daily","Weekly","Monthly");
+
     @FXML
     private DatePicker dateAddCalendar;
 
@@ -47,9 +49,16 @@ public class AddController{
     private ComboBox minuteAddCalendar;
 
     @FXML
+    private ComboBox statusAddCalendar;
+
+    @FXML
     private void initialize(){
         hourAddCalendar.setItems(hourChoice);
         minuteAddCalendar.setItems(minuteChoice);
+        statusAddCalendar.setItems(statusChoice);
+        hourAddCalendar.setValue(0);
+        minuteAddCalendar.setValue(0);
+        statusAddCalendar.setValue("Normal");
     }
 
     @FXML
@@ -57,19 +66,19 @@ public class AddController{
         if (items.getItems().size() == 0){
             items.addItem(items.getItems().size()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
                     dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
-                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString());
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString(),statusAddCalendar.getValue().toString());
 
-            database.addDate(new Item(items.getItems().size()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
+            database.addData(new Item(items.getItems().size()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
                     dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
-                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString()));
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString(),statusAddCalendar.getValue().toString()));
         } else {
             items.addItem(items.getItems().get(items.getItems().size()-1).getId()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
                     dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
-                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString());
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString(),statusAddCalendar.getValue().toString());
 
-            database.addDate(new Item(items.getItems().get(items.getItems().size()-1).getId()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
+            database.addData(new Item(items.getItems().get(items.getItems().size()-1).getId()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
                     dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),
-                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString()));
+                    hourAddCalendar.getValue().toString(), minuteAddCalendar.getValue().toString(),statusAddCalendar.getValue().toString()));
         }
         this.toMainWindow(event);
 

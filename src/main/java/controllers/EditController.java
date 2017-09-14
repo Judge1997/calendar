@@ -33,6 +33,8 @@ public class EditController {
     private ObservableList<String> minuteChoice = FXCollections.observableArrayList("0","5","10","15","20","25","30","35","40",
             "45","50","55");
 
+    private ObservableList<String> statusChoice = FXCollections.observableArrayList("Normal","Daily","Weekly","Monthly");
+
     @FXML
     private DatePicker dateEditCalendar;
 
@@ -49,9 +51,13 @@ public class EditController {
     private ComboBox minuteEditCalendar;
 
     @FXML
+    private ComboBox statusEditCalendar;
+
+    @FXML
     private void initialize(){
         hourEditCalendar.setItems(hourChoice);
         minuteEditCalendar.setItems(minuteChoice);
+        statusEditCalendar.setItems(statusChoice);
     }
 
     @FXML
@@ -64,7 +70,7 @@ public class EditController {
                 hourEditCalendar.getValue().toString(),
                 minuteEditCalendar.getValue().toString());
 
-        database.editDate(this.item);
+        database.editData(this.item);
 
         this.toMainWindow(event);
     }
@@ -76,6 +82,7 @@ public class EditController {
         dateEditCalendar.setValue(LocalDate.parse(this.item.getDate()));
         hourEditCalendar.setValue(this.item.getTime().substring(0,2));
         minuteEditCalendar.setValue(this.item.getTime().substring(3,5));
+        statusEditCalendar.setValue(this.item.getStatus());
     }
 
     @FXML

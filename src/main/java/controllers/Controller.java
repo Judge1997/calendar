@@ -58,20 +58,12 @@ public class Controller {
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
                     detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                             +"Detail: "+item.getDetail()+"\n\n"
-                            +"Date: "+item.getDateAndTime().toString().substring(0,3)+" "
-                            +item.getDate().substring(8,10)+"-"
-                            +item.getDateAndTime().toString().substring(4,7)+"-"
-                            +item.getDate().substring(0,4)
-                            +" Time: "+item.getTime());
+                            +item.getDateAndTime());
                 }else{
                     Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
                     detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                             +"Detail: "+item.getDetail()+"\n\n"
-                            +"Date: "+item.getDateAndTime().toString().substring(0,3)+" "
-                            +item.getDate().substring(8,10)+"-"
-                            +item.getDateAndTime().toString().substring(4,7)+"-"
-                            +item.getDate().substring(0,4)
-                            +" Time: "+item.getTime());
+                            +item.getDateAndTime());
                 }
             }
         });
@@ -118,10 +110,22 @@ public class Controller {
     public void deleteCalendar(ActionEvent event) throws SQLException {
 
         int index = listCalendar.getSelectionModel().getSelectedIndex();
-        database.deleteDate(items.getItems().get(index).getId());
+        database.deleteData(items.getItems().get(index).getId());
         items.deleteItem(index);
         detailCalendar.setText("");
 
     }
 
+    @FXML
+    public void searchCalendar(ActionEvent event) throws IOException {
+        Button add = (Button) event.getSource();
+
+        Stage addWindow = (Stage) add.getScene().getWindow();
+        Parent window = FXMLLoader.load(getClass().getResource("/SearchCalendar.fxml"));
+
+        addWindow.setTitle("Search Calendar");
+        addWindow.setScene(new Scene(window,400,600));
+        addWindow.setResizable(false);
+        addWindow.show();
+    }
 }

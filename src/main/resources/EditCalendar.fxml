@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditController">
     <children>
-        <DatePicker fx:id="dateEditCalendar" layoutX="87.0" layoutY="31.0" prefHeight="25.0" prefWidth="262.0" />
+        <DatePicker fx:id="dateEditCalendar" layoutX="87.0" layoutY="31.0" prefHeight="25.0" prefWidth="121.0" />
         <Label layoutX="25.0" layoutY="30.0" prefHeight="27.0" prefWidth="52.0" text="Date :">
             <font>
                 <Font size="18.0" />
@@ -52,5 +52,11 @@
         </Label>
         <ComboBox fx:id="minuteEditCalendar" layoutX="286.0" layoutY="70.0" prefHeight="25.0" prefWidth="63.0" />
       <Button mnemonicParsing="false" onAction="#toMainWindow" text="BACK" />
+      <Label layoutX="218.0" layoutY="30.0" text="Status :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="statusEditCalendar" layoutX="286.0" layoutY="31.0" prefHeight="25.0" prefWidth="89.0" />
     </children>
 </AnchorPane>
