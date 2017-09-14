@@ -3,6 +3,7 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Item;
 import models.Items;
 
 import java.io.IOException;
@@ -27,9 +32,33 @@ public class SearchController {
     private ListView listCalendar;
 
     @FXML
+    private TextArea detailSearchCalendar;
+
+    @FXML
+    private void initialize(){
+        listCalendar.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton() == MouseButton.SECONDARY)
+                {
+                    Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                    detailSearchCalendar.setText("Title: "+item.getTitle()+"\n\n"
+                            +"Detail: "+item.getDetail()+"\n\n"
+                            +item.getDateAndTime());
+                }else{
+                    Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                    detailSearchCalendar.setText("Title: "+item.getTitle()+"\n\n"
+                            +"Detail: "+item.getDetail()+"\n\n"
+                            +item.getDateAndTime());
+                }
+            }
+        });
+    }
+
+    @FXML
     public void searchButton(ActionEvent event) throws ParseException {
         listCalendar.setItems(items.searchItem(dateSearchCalendar.getValue().getDayOfMonth(),dateSearchCalendar.getValue().getMonthValue(),dateSearchCalendar.getValue().getYear()));
-
     }
 
     @FXML

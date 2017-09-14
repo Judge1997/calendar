@@ -69,6 +69,7 @@ public class EditController {
                 dateEditCalendar.getValue().getYear(),
                 hourEditCalendar.getValue().toString(),
                 minuteEditCalendar.getValue().toString());
+        this.item.setStatus(statusEditCalendar.getValue().toString());
 
         database.editData(this.item);
 

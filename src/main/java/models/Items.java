@@ -34,7 +34,20 @@ public class Items {
             if (i.getStatus().equals("Daily")){
                 searchList.add(i);
             } else if (i.getStatus().equals("Weekly")){
-
+                if (date.toString().substring(0,3).equals(i.getDateAndTime().substring(12,15))){
+                    searchList.add(i);
+                }
+            } else if (i.getStatus().equals("Monthly")){
+                if (date.toString().substring(8,10).equals(i.getDate().toString().substring(8,10))){
+                    searchList.add(i);
+                }
+            } else {
+                SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+                String dateToString = formatDate.format(date);
+                String dateString = dateToString.substring(6,10)+"-"+dateToString.substring(3,5)+"-"+dateToString.substring(0,2);
+                if (dateString.equals(i.getDate())){
+                    searchList.add(i);
+                }
             }
         }
 
