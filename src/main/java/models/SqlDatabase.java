@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.util.List;
+import java.util.Vector;
 
 public class SqlDatabase {
 
@@ -19,8 +21,8 @@ public class SqlDatabase {
         }
     }
 
-    public ObservableList<Item> readDatabase() throws SQLException, ParseException {
-        ObservableList<Item> items = FXCollections.observableArrayList();
+    public List<Item> readDatabase() throws SQLException, ParseException {
+        List<Item> items = new Vector<Item>();
 
         String query = "Select * from dataBaseCalendar";
         Statement statement = connect.createStatement();

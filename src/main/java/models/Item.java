@@ -27,6 +27,7 @@ public class Item {
     public String getDetail(){ return this.detail; }
 
     public String getDateAndTime(){
+        System.out.println(this.date);
         String dateAndTime;
         if (this.status.equals("Daily")){
             dateAndTime = "Date: "+"Every day"+" Time: "+this.getTime();

@@ -58,7 +58,12 @@ public class SearchController {
 
     @FXML
     public void searchButton(ActionEvent event) throws ParseException {
-        listCalendar.setItems(items.searchItem(dateSearchCalendar.getValue().getDayOfMonth(),dateSearchCalendar.getValue().getMonthValue(),dateSearchCalendar.getValue().getYear()));
+        ObservableList<Item> observableList = FXCollections.observableArrayList();
+
+        observableList.addAll(items.searchItem(dateSearchCalendar.getValue().getDayOfMonth(),dateSearchCalendar.getValue().getMonthValue(),
+                dateSearchCalendar.getValue().getYear()));
+
+        listCalendar.setItems(observableList);
     }
 
     @FXML

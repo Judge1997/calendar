@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -43,27 +45,34 @@ public class Controller {
     private TextArea detailCalendar;
 
     public Controller() throws SQLException, ParseException {
-        items.setItems(database.readDatabase());
+        ObservableList<Item> observableList = FXCollections.observableArrayList();
+        observableList.addAll(database.readDatabase());
+        items.setItems(observableList);
     }
 
     @FXML
     private void initialize(){
-        listCalendar.setItems(items.getItems());
+        ObservableList<Item> observableList = FXCollections.observableArrayList();
+        observableList.addAll(items.getItems());
+        listCalendar.setItems(observableList);
         listCalendar.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent event) {
-                if(event.getButton() == MouseButton.SECONDARY)
-                {
-                    Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
-                    detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
-                            +"Detail: "+item.getDetail()+"\n\n"
-                            +item.getDateAndTime());
+                if(event.getButton() == MouseButton.SECONDARY) {
+                    if (!listCalendar.getSelectionModel().equals(null)){
+                        Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                        detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
+                                +"Detail: "+item.getDetail()+"\n\n"
+                                +item.getDateAndTime());
+                    }
                 }else{
-                    Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
-                    detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
-                            +"Detail: "+item.getDetail()+"\n\n"
-                            +item.getDateAndTime());
+                    if (!listCalendar.getSelectionModel().equals(null)){
+                        Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                        detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
+                                +"Detail: "+item.getDetail()+"\n\n"
+                                +item.getDateAndTime());
+                    }
                 }
             }
         });
@@ -112,6 +121,9 @@ public class Controller {
         int index = listCalendar.getSelectionModel().getSelectedIndex();
         database.deleteData(items.getItems().get(index).getId());
         items.deleteItem(index);
+        ObservableList<Item> observableList = FXCollections.observableArrayList();
+        observableList.addAll(items.getItems());
+        listCalendar.setItems(observableList);
         detailCalendar.setText("");
 
     }

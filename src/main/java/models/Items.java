@@ -1,18 +1,21 @@
 package models;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 public class Items {
 
-    private ObservableList<Item> items = FXCollections.observableArrayList();
+    private List<Item> items = new Vector<Item>();
 
     private static Items self = null;
+
+    private Items(){}
 
     public static Items getSelf() {
         if (self == null){
@@ -26,8 +29,8 @@ public class Items {
         this.items.add(item);
     }
 
-    public ObservableList<Item> searchItem(int day, int month, int year) throws ParseException {
-        ObservableList<Item> searchList = FXCollections.observableArrayList();
+    public List<Item> searchItem(int day, int month, int year) throws ParseException {
+        List<Item> searchList = new Vector<Item>();
         DateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yy");
         Date date = dateTimeFormat.parse(day+"/"+month+"/"+year);
         for (Item i : this.items){
@@ -62,7 +65,7 @@ public class Items {
         this.items.remove(index);
     }
 
-    public ObservableList<Item> getItems(){
+    public List<Item> getItems(){
         return this.items;
     }
 
