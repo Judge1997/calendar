@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import models.Item;
 import models.Items;
 import models.SqlDatabase;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,13 +31,8 @@ public class Controller {
     public static SqlDatabase database;
 
     static {
-        try {
-            database = new SqlDatabase();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ApplicationContext bf = new ClassPathXmlApplicationContext("/Database.xml");
+        database = (SqlDatabase) bf.getBean("database");
     }
 
     @FXML

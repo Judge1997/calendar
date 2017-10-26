@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Vector;
 
-public class SqlDatabase {
+public class SqlDatabase implements Database{
 
     private Connection connect;
 
