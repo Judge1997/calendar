@@ -11,7 +11,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Calendar.fxml"));
         Parent root = loader.load();
-        Controller controller = loader.getController();
         primaryStage.setTitle("Calendar");
         primaryStage.setScene(new Scene(root, 400, 600));
         primaryStage.setResizable(false);

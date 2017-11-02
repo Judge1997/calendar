@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Database;
 import models.Item;
 import models.Items;
 import models.SqlDatabase;
@@ -28,11 +29,13 @@ public class Controller {
 
     private Items items = Items.getSelf();
     private EditController editController;
-    public static SqlDatabase database;
+    public static Database database;
 
     static {
-        ApplicationContext bf = new ClassPathXmlApplicationContext("/Database.xml");
-        database = (SqlDatabase) bf.getBean("database");
+//        ApplicationContext bf = new ClassPathXmlApplicationContext("/Database.xml");
+//        database = (Database) bf.getBean("database");
+        ApplicationContext bf = new ClassPathXmlApplicationContext("client.xml");
+        database = (Database) bf.getBean("databaseService");
     }
 
     @FXML
@@ -41,7 +44,7 @@ public class Controller {
     @FXML
     private TextArea detailCalendar;
 
-    public Controller() throws SQLException, ParseException {
+    public Controller() throws SQLException, ParseException, ClassNotFoundException {
         ObservableList<Item> observableList = FXCollections.observableArrayList();
         observableList.addAll(database.readDatabase());
         items.setItems(observableList);
@@ -57,15 +60,15 @@ public class Controller {
             @Override
             public void handle(MouseEvent event) {
                 if(event.getButton() == MouseButton.SECONDARY) {
-                    if (!listCalendar.getSelectionModel().equals(null)){
-                        Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                    Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                    if ( item != null ){
                         detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                                 +"Detail: "+item.getDetail()+"\n\n"
                                 +item.getDateAndTime());
                     }
                 }else{
-                    if (!listCalendar.getSelectionModel().equals(null)){
-                        Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                    Item item = (Item) listCalendar.getSelectionModel().getSelectedItem();
+                    if ( item != null ){
                         detailCalendar.setText("Title: "+item.getTitle()+"\n\n"
                                 +"Detail: "+item.getDetail()+"\n\n"
                                 +item.getDateAndTime());
@@ -108,12 +111,11 @@ public class Controller {
 
     @FXML
     public void exitCalendar(ActionEvent event) throws SQLException {
-        database.closeDatabase();
         System.exit(0);
     }
 
     @FXML
-    public void deleteCalendar(ActionEvent event) throws SQLException {
+    public void deleteCalendar(ActionEvent event) throws SQLException, ClassNotFoundException {
 
         int index = listCalendar.getSelectionModel().getSelectedIndex();
         database.deleteData(items.getItems().get(index).getId());

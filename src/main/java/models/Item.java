@@ -1,11 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Item {
+public class Item implements Serializable{
 
     private int id;
     private String title;

@@ -62,7 +62,7 @@ public class AddController{
     }
 
     @FXML
-    private void doneAddCalendar(ActionEvent event) throws IOException, ParseException, SQLException {
+    private void doneAddCalendar(ActionEvent event) throws IOException, ParseException, SQLException, ClassNotFoundException {
         if (items.getItems().size() == 0){
             items.addItem(items.getItems().size()+1,titleAddCalendar.getText(),detailAddCalendar.getText(),dateAddCalendar.getValue().getDayOfMonth(),
                     dateAddCalendar.getValue().getMonthValue(),  dateAddCalendar.getValue().getYear(),

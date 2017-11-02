@@ -61,7 +61,7 @@ public class EditController {
     }
 
     @FXML
-    private void doneEditCalendar(ActionEvent event) throws IOException, ParseException, SQLException {
+    private void doneEditCalendar(ActionEvent event) throws IOException, ParseException, SQLException, ClassNotFoundException {
         this.item.setTitle(titleEditCalendar.getText());
         this.item.setDetail(detailEditCalendar.getText());
         this.item.setDate(dateEditCalendar.getValue().getDayOfMonth(),
